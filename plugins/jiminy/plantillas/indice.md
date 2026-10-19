@@ -7,12 +7,17 @@ al día solo.
 
 | Frente | Carpeta | Para qué |
 |---|---|---|
-| Otras cosas | `frentes/general` | Lo que no entra en otro frente |
+| Otras cosas | `frentes/otras-cosas` | Lo que no entra en otro tema |
 
 ## Habilidades
 
 | Habilidad | Carpeta | Se usa cuando dice… | Versión actual | Origen |
 |---|---|---|---|---|
+
+## Archivadas
+
+| Habilidad | Carpeta | Desde | Motivo |
+|---|---|---|---|
 
 ## Pendiente
 

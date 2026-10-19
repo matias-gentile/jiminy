@@ -1,1 +1,1 @@
-Este es un proyecto de Jiminy. Antes de responder cualquier pedido, leé el archivo jiminy.md de la carpeta y usá la habilidad «puerta» de Jiminy. Seguí siempre las reglas de Jiminy.
+Este es un proyecto de Jiminy. Para cualquier pedido en este proyecto, usá primero la habilidad «puerta» de Jiminy (jiminy:puerta), antes que cualquier otra habilidad, y seguí sus pasos aunque también uses las de PDF, Word o Excel. Para recordar preferencias usá solo los archivos de Jiminy, no la memoria del proyecto; si se contradicen, valen los archivos.

@@ -4,6 +4,11 @@ Fecha: 2026-10-19 · Dueño: Matías Gentile · Estado: Fase 0 (verificación)
 
 ## Para quien retome esto
 
+> Desde la versión 0.1, el detalle de cada componente está en `docs/plan-desarrollo.md`
+> y en los contratos de `plugins/jiminy/` (reglas, referencias y plantillas). Si algo
+> de este archivo los contradice, valen ellos.
+
+
 Este archivo es la fuente de verdad del proyecto y reemplaza al handoff original,
 que era para Jam City y ya no aplica. Antes de escribir nada, leé **Decisiones** y
 **Sin confirmar**. Lo que está en *Sin confirmar* se prueba en la Fase 0
@@ -24,8 +29,9 @@ antes de que meta la pata.
 
 Que cualquier persona, sin experiencia técnica:
 
-1. haga una sola acción técnica: agregar Jiminy en Cowork pegando
-   `matias-gentile/jiminy`;
+1. haga una sola acción técnica por su cuenta: agregar Jiminy en Cowork pegando
+   `matias-gentile/jiminy`. Lo demás (crear el proyecto, pegar un texto, poner un
+   archivo en una carpeta) lo hace siguiendo los pasos que da Jiminy, de a uno;
 2. siga una entrevista guiada, de a una pregunta, que arma su espacio según su
    trabajo y su vida;
 3. termine la primera sesión con dos o tres habilidades propias y una tarea real
@@ -46,7 +52,7 @@ incluida su cuenta de Instagram.
 | 4 | **Las habilidades de la persona son archivos en la carpeta del proyecto**, no skills nativas. El núcleo sí es un plugin. | Jiminy las puede editar, versionar y deshacer sin que la persona instale nada. |
 | 5 | **Un proyecto de Cowork "Jiminy" con frentes adentro** (consultorio, Instagram, casa…). | Un solo lugar al que ir. Si la memoria nativa mezcla los frentes, se pasa a un proyecto por frente (Fase 0, prueba 5). |
 | 6 | **Criterios por frente**, más unos pocos generales. | Como la biblioteca por dominio de harness2: el tono de Instagram no puede colarse en un informe médico. |
-| 7 | **Jiminy solo actúa en su proyecto**, que se reconoce por el archivo `jiminy.md` en la raíz de la carpeta. | Un plugin instalado queda en la cuenta y aparece también en el chat y en Claude Code. Afuera de su proyecto, Jiminy no hace nada. |
+| 7 | **Jiminy solo actúa en su proyecto**, que se reconoce por el archivo `jiminy.md` en la raíz de la carpeta. `empezar` solo arranca cuando la persona nombra a Jiminy. | Un plugin instalado queda en la cuenta y aparece también en el chat y en Claude Code. Afuera de su proyecto, Jiminy no hace nada. |
 | 8 | **Sin git para el usuario.** Deshacer es elegir una versión anterior: cada habilidad y cada entregable tiene versiones (`v1`, `v2`). Nunca se modifica un original. | git en Mac pide instalar las herramientas de Xcode, y Cowork no documenta un "deshacer". |
 | 9 | **Jiminy prepara, la persona publica.** Nada sale (mails, posteos, mensajes) sin confirmación explícita. | Publicar no se deshace, y la persona responde por lo que sale con su nombre. |
 | 10 | **Biblioteca curada, no búsqueda en vivo.** | Ver *Biblioteca curada*: seguridad, encaje, y que la mejora conserve sentido. |
@@ -156,7 +162,9 @@ Proyecto de Cowork "Jiminy" (en la compu de la persona; nunca va al repo)
 
 Reglas de estilo para todas las habilidades:
 
-- Una pregunta por vez. Nunca dos pasos seguidos sin una respuesta de la persona.
+- Una pregunta por vez. En la entrevista, al crear o mejorar una habilidad y en los
+  pasos de pantalla, nunca dos pasos seguidos sin una respuesta de la persona. Dentro
+  de una tarea, se sigue la autonomía del perfil.
 - Antes de cada paso, dos líneas sobre qué va a pasar.
 - Sin jerga: nada de terminal, repo, git, plugin, skill, markdown, prompt, token,
   MCP ni YAML.
@@ -179,7 +187,8 @@ quedó.
 4. **Entrevista**, de a una pregunta y siempre concreta. Usa la técnica de
    `interview-me`: tener una hipótesis y seguir preguntando hasta estar seguro, sin
    pasarse.
-   - ¿A qué te dedicás? ¿Para qué más te gustaría usarlo?
+   - ¿A qué te dedicás?
+   - ¿Para qué más te gustaría usarlo?
    - Contame qué hiciste el lunes pasado.
    - ¿Qué tarea te lleva más tiempo y es casi siempre igual?
    - ¿Qué archivo o mensaje armás todas las semanas?
@@ -247,8 +256,8 @@ Se dispara cuando la persona corrige o define algo: "no, así no", "siempre que�
    la memoria permanente, y lo dice.
 3. Pregunta si aplica a todo o solo a este frente.
 4. Espera la confirmación y lo guarda con la fecha y el ejemplo que lo originó.
-5. Presupuesto: si los criterios de un frente pasan de unas 30 líneas, propone
-   fusionar algunos o convertirlos en habilidad.
+5. Presupuesto: sigue los límites de `referencias/carpeta.md` (hasta 25 sin decir
+   nada, propone juntar del 26 al 30, nunca más de 30).
 
 ### `mejorar-habilidad`
 

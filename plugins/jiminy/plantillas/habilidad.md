@@ -1,9 +1,10 @@
 # {{Nombre de la habilidad, en palabras de la persona}}
 
-- **Frente:** {{frente}}
+- **Tema:** {{frente}}
 - **Versión:** {{v1}}
 - **Origen:** {{propia | semilla: <carpeta> · versión <N>}}
-- **Se usa cuando dice:** "{{frase}}" · "{{frase}}"
+
+Las frases con que la persona la pide están en `indice.md`, no acá.
 
 ## Para qué sirve
 
@@ -11,7 +12,7 @@
 
 ## Qué recibe
 
-{{Qué tipo de archivo o mensaje, de dónde viene y dónde lo deja: por ejemplo, un PDF en Entrada.}}
+{{Qué tipo de archivo o mensaje y de dónde viene: por ejemplo, un PDF adjunto o en Entrada, o un mail pegado.}}
 
 ## Pasos
 
@@ -34,7 +35,7 @@ Lo que nunca puede pasar.
 
 ## Formato del entregable
 
-{{Tipo de archivo, largo, estructura y nombre. Por ejemplo: Word de una página, `resumen-<tema>_v1.docx`.}}
+{{Tipo de archivo con su extensión (.docx, .xlsx, .pptx, .pdf), largo, estructura y nombre. Por ejemplo: Word (.docx) de una página, `resumen-paper-<tema>_v1.docx`. O "en la conversación, para copiar".}}
 
 ## Controles antes de entregar
 
@@ -44,5 +45,5 @@ Se suman a los controles generales de `revisar`.
 
 ## Ejemplo
 
-- **Entrada de ejemplo:** {{archivo en Entrada o descripción}}
+- **Entrada de ejemplo:** {{archivo en ejemplos/ o "todavía ninguno"}}
 - **Buen resultado:** {{archivo en Entregables o descripción}}

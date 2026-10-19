@@ -69,7 +69,14 @@ nueva? Si no llegó, ¿llega cambiando solo el texto, sin subir la versión del 
 3. Buscá `cuaderno-de-prueba.md` en la carpeta desde Finder o el Explorador.
 
 Fijate: ¿lo encontró en la segunda sesión? ¿El archivo está en la carpeta que
-elegiste? ¿Qué ruta informó Claude?
+elegiste? ¿Qué ruta informó Claude? Anotá la forma de esa ruta: va al contrato de la
+carpeta.
+
+4. Abrí una conversación **fuera** del proyecto y pedí: "Anotá en mi cuaderno de
+   prueba: hola". ¿Puede escribir en la carpeta del proyecto, o hay que abrir una
+   conversación nueva adentro? ¿Una conversación de afuera se puede pasar al proyecto?
+5. Repetí el paso 1 con una carpeta dentro de Documentos sincronizada con iCloud (en
+   Mac) u OneDrive (en Windows), si la compu la tiene. ¿Funciona igual?
 
 **Decide:** si funciona guardar las habilidades de la persona como archivos en su carpeta.
 
@@ -88,14 +95,25 @@ el archivo `jiminy.md`.
    - "dame ideas para un posteo sobre el ojo seco"
    - "¿qué dice el PDF sobre el tema principal?"
 3. Anotá cuántas veces apareció "(Prueba: la puerta de Jiminy se activó.)".
-4. Agregá a las instrucciones del proyecto: "Este es un proyecto de Jiminy. Antes
-   de cada pedido, usá la habilidad puerta de jiminy-prueba." Repetí los cinco pedidos.
-5. Fuera del proyecto, en una sesión común de Cowork o en el chat, pedí: "resumime
+4. Creá en la raíz de la carpeta un archivo `CLAUDE.md` con este texto, sin tocar
+   las instrucciones del proyecto, y repetí los cinco pedidos:
+   "Este es un proyecto de Jiminy. Para cualquier pedido en este proyecto, usá primero
+   la habilidad «puerta» de Jiminy (jiminy-prueba:puerta), antes que cualquier otra
+   habilidad, y seguí sus pasos aunque también uses las de PDF, Word o Excel."
+   ¿Cowork lo carga solo?
+5. Borrá `CLAUDE.md`, pegá ese mismo texto en las instrucciones del proyecto y repetí
+   los cinco pedidos.
+6. Fuera del proyecto, en una sesión común de Cowork o en el chat, pedí: "resumime
    este texto: el café es una bebida que se hace con granos tostados". La puerta no
    tiene que activarse ni anotar nada.
+7. En el pedido del PDF, fijate si se usó la habilidad de PDF que trae Claude en lugar
+   de la puerta, o las dos.
 
-**Decide:** si la persona tiene que pegar instrucciones en el proyecto, y cuáles; y
-si Jiminy queda quieto fuera de su proyecto.
+**Decide:** cuál de las tres capas de activación funciona (descripción sola,
+`CLAUDE.md`, instrucciones del proyecto). Si `CLAUDE.md` alcanza, pegar las
+instrucciones pasa a ser opcional; si ninguna de las dos funciona sola, `empezar`
+tiene que insistir con pegarlas. También decide si Jiminy queda quieto fuera de su
+proyecto.
 
 ## Prueba 4. ¿Puede copiar una semilla del plugin a la carpeta?
 
@@ -110,7 +128,8 @@ si Jiminy queda quieto fuera de su proyecto.
 Después de las pruebas 2 a 4:
 
 1. Abrí la memoria del proyecto, en la configuración del proyecto.
-2. Anotá qué guardó sola, si se puede editar o borrar, y si se puede apagar.
+2. Anotá qué guardó sola, si se puede editar o borrar (y dónde, paso a paso: Jiminy
+   se lo explica a la persona cuando le pide olvidar algo), y si se puede apagar.
 
 **Decide:** si usamos la memoria del proyecto, solo nuestros archivos o las dos; y
 si conviene un proyecto para todo o uno por frente.
@@ -133,6 +152,19 @@ necesitan otra estrategia.
 
 **Decide:** el texto del paso de privacidad de `empezar`.
 
+## Prueba 7b. Archivos adjuntos y opciones para tocar
+
+1. En el proyecto, arrastrá un PDF a la conversación (no a la carpeta) y pedí:
+   "Guardá una copia de este archivo en la carpeta Entrada". ¿Dónde quedó el adjunto?
+   ¿Claude lo pudo leer y copiar?
+2. Pedí: "Haceme una pregunta con opciones para tocar". ¿Aparecen botones? ¿Hay un
+   botón para saltear?
+3. Pedí: "Creá un Word que diga hola en la carpeta Entregables". ¿Aparece el archivo
+   como enlace en la conversación? ¿Se abre al tocarlo?
+
+**Decide:** cómo `empezar` pide el primer archivo, si Jiminy pregunta con botones y
+cómo le dice a la persona dónde quedó lo que preparó.
+
 ## Prueba 8. Windows
 
 Repetí las pruebas 0, 1, 2, 4 y 6 en una compu Windows x64.
@@ -149,5 +181,6 @@ Repetí las pruebas 0, 1, 2, 4 y 6 en una compu Windows x64.
 | 5 | | — | | |
 | 6 | | | | |
 | 7 | | — | | |
+| 7b | | | | |
 
 Al terminar, quitá `jiminy-prueba` de tu cuenta.

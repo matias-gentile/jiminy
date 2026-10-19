@@ -36,7 +36,12 @@ SECCIONES_HABILIDAD = [
 ]
 ARCHIVOS_SEMILLA = ["habilidad.md", "preguntas.md", "controles.md", "origen.md"]
 # Marcas que completa nueva-habilidad sin preguntar (salen del perfil o de la conversación).
-MARCAS_PROPIAS = {"frente", "v1", "frase", "propia | semilla: <carpeta> · versión <N>"}
+MARCAS_PROPIAS = {"frente", "v1"}
+# Contratos que se leen en cada conversación: tienen que ser livianos.
+CONTRATOS_SIEMPRE = ["reglas.md", "referencias/estilo.md", "referencias/rutas.md"]
+MAX_BYTES_CONTRATOS = 20 * 1024
+BYTES_CONTRATOS_RECOMENDADOS = 16 * 1024
+ENCABEZADO_EXACTO = re.compile(r"^---\nname: ([a-z0-9-]+)\ndescription: >\n((?:  \S.*\n)+)---\n")
 JERGA = ["plugin", "skill", "markdown", "prompt", "token", "repositorio", "yaml", "json", "terminal", "frontmatter"]
 PREFIJOS_DEL_PLUGIN = ("referencias/", "plantillas/", "semillas/", "skills/")
 MAX_LINEAS_SKILL = 500
@@ -146,9 +151,11 @@ def validar_limites(plugin: Path, informe: Informe) -> None:
         informe.error(plugin, f"{total} bytes; Cowork admite hasta {MAX_BYTES_PLUGIN}")
 
 
-def validar_skills(plugin: Path, informe: Informe) -> None:
+def validar_skills(plugin: Path, informe: Informe, exacto: bool) -> None:
     for skill in sorted((plugin / "skills").glob("*/SKILL.md")):
         texto = skill.read_text(encoding="utf-8")
+        if exacto and not ENCABEZADO_EXACTO.match(texto):
+            informe.error(skill, "el encabezado tiene que ser exactamente 'name: …', 'description: >' y el texto con dos espacios de sangría")
         leido = encabezado(texto)
         if not leido:
             informe.error(skill, "falta el encabezado YAML entre líneas '---'")
@@ -183,15 +190,30 @@ def validar_jerga(ruta: Path, cuerpo: str, informe: Informe) -> None:
 
 
 def validar_rutas_del_plugin(plugin: Path, informe: Informe) -> None:
-    """Las rutas del plugin que se nombran entre comillas invertidas tienen que existir."""
+    """Las rutas del plugin que se nombran entre comillas invertidas tienen que existir.
+
+    Las relativas (`../../reglas.md`, `../revisar/SKILL.md`) se resuelven desde la
+    carpeta de la habilidad (la que tiene el SKILL.md), también en sus referencias;
+    las demás, desde la raíz del plugin.
+    """
     for ruta in archivos(plugin):
         if ruta.suffix != ".md":
             continue
         for citada in re.findall(r"`([^`\s]+)`", ruta.read_text(encoding="utf-8")):
+            if re.search(r"[<>{}*…]|\.\.\.(?!/)", citada):
+                continue
+            if citada.startswith("../"):
+                partes = ruta.relative_to(plugin).parts
+                if partes[0] != "skills" or len(partes) < 3:
+                    continue  # fuera de una habilidad, `../` es solo un ejemplo
+                destino = (plugin / "skills" / partes[1] / citada).resolve()
+                if not destino.exists():
+                    informe.error(ruta, f"nombra `{citada}`, que no existe desde su carpeta")
+                elif plugin.resolve() not in destino.parents and destino != plugin.resolve():
+                    informe.error(ruta, f"`{citada}` sale de la carpeta del plugin")
+                continue
             citada = citada.removeprefix("${CLAUDE_PLUGIN_ROOT}/")
             if not citada.startswith(PREFIJOS_DEL_PLUGIN) and citada != "reglas.md":
-                continue
-            if re.search(r"[<>{}*…]|\.\.\.", citada):
                 continue
             if not (plugin / citada.rstrip("/")).exists():
                 informe.error(ruta, f"nombra `{citada}`, que no existe en el plugin")
@@ -213,6 +235,16 @@ def validar_semillas(plugin: Path, informe: Informe) -> None:
         for seccion in SECCIONES_HABILIDAD:
             if seccion not in texto:
                 informe.error(habilidad, f"falta la sección '{seccion}' de plantillas/habilidad.md")
+        origen_linea = re.search(rf"^- \*\*Origen:\*\* semilla: {re.escape(semilla.name)} · versión (\d+)$", texto, re.MULTILINE)
+        if not origen_linea:
+            informe.error(habilidad, f"falta la línea fija '- **Origen:** semilla: {semilla.name} · versión <N>'")
+        origen = semilla / "origen.md"
+        if origen.is_file():
+            texto_origen = origen.read_text(encoding="utf-8")
+            if "## Cambios" not in texto_origen:
+                informe.error(origen, "falta la sección '## Cambios'")
+            elif origen_linea and not re.search(rf"^- versión {origen_linea.group(1)} \(", texto_origen, re.MULTILINE):
+                informe.error(origen, f"'## Cambios' no tiene la entrada de la versión {origen_linea.group(1)}")
         texto_preguntas = preguntas.read_text(encoding="utf-8")
         numeradas = re.findall(r"^\d+\.\s", texto_preguntas, re.MULTILINE)
         if not 3 <= len(numeradas) <= 5:
@@ -232,6 +264,34 @@ def validar_marcas_sueltas(plugin: Path, informe: Informe) -> None:
         for marca in re.findall(r"\{\{[^}]*\}\}", texto):
             if marca != "{{…}}":
                 informe.advertencia(ruta, f"marca sin completar fuera de plantillas y semillas: {marca}")
+
+
+def validar_contratos(plugin: Path, informe: Informe) -> None:
+    presentes = [plugin / c for c in CONTRATOS_SIEMPRE if (plugin / c).is_file()]
+    if not presentes:
+        return
+    total = sum(p.stat().st_size for p in presentes)
+    if total > MAX_BYTES_CONTRATOS:
+        informe.error(plugin, f"reglas, estilo y rutas pesan {total} bytes; el máximo es {MAX_BYTES_CONTRATOS}")
+    elif total > BYTES_CONTRATOS_RECOMENDADOS:
+        informe.advertencia(plugin, f"reglas, estilo y rutas pesan {total} bytes; conviene menos de {BYTES_CONTRATOS_RECOMENDADOS}")
+    carpeta = plugin / "referencias" / "carpeta.md"
+    plantilla = plugin / "plantillas" / "jiminy.md"
+    migraciones = plugin / "referencias" / "migraciones.md"
+    if not (carpeta.is_file() and plantilla.is_file()):
+        return
+    contrato = re.search(r"Versión del contrato: (\d+)", carpeta.read_text(encoding="utf-8"))
+    de_carpeta = re.search(r"Versión de la carpeta: (\d+)", plantilla.read_text(encoding="utf-8"))
+    if not contrato or not de_carpeta:
+        informe.error(carpeta, "faltan 'Versión del contrato: N' o 'Versión de la carpeta: N' en la plantilla jiminy.md")
+        return
+    if contrato.group(1) != de_carpeta.group(1):
+        informe.error(plantilla, f"la carpeta nueva dice versión {de_carpeta.group(1)} y el contrato {contrato.group(1)}")
+    version = int(contrato.group(1))
+    if version > 1:
+        texto = migraciones.read_text(encoding="utf-8") if migraciones.is_file() else ""
+        if f"{version - 1} → {version}" not in texto:
+            informe.error(migraciones, f"falta la migración '{version - 1} → {version}'")
 
 
 def validar_nombres(informe: Informe) -> None:
@@ -281,7 +341,8 @@ def main() -> int:
     plugins = validar_catalogo(informe)
     for plugin in plugins:
         validar_limites(plugin, informe)
-        validar_skills(plugin, informe)
+        validar_skills(plugin, informe, exacto=plugin.name == "jiminy")
+        validar_contratos(plugin, informe)
         validar_rutas_del_plugin(plugin, informe)
         validar_semillas(plugin, informe)
         validar_marcas_sueltas(plugin, informe)
