@@ -1,0 +1,8 @@
+{
+  "name": "jiminy",
+  "version": "0.1.0",
+  "description": "Un acompañante para empezar a usar Claude sin saber nada de IA: te entrevista, arma tu espacio de trabajo, te deja tus primeras habilidades y aprende de cada corrección.",
+  "author": {
+    "name": "Matías Gentile"
+  }
+}
