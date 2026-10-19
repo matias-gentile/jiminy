@@ -1,0 +1,53 @@
+{
+  "revisado": "2026-10-19",
+  "fuentes": [
+    {
+      "repo": "anthropics/knowledge-work-plugins",
+      "autor": "Anthropic",
+      "licencia": "Apache-2.0",
+      "commit": "33eeda1e8fd856455b05479d13a0f85b5f803744",
+      "fecha": "2026-10-15",
+      "rutas": [
+        { "ruta": "small-business/skills/social-content-engine", "uso": "semilla redes" },
+        { "ruta": "small-business/skills/inbox-manager", "uso": "semilla mails" },
+        { "ruta": "small-business/skills/smb-onboard", "uso": "referencia de diseño: empezar" },
+        { "ruta": "small-business/skills/smb-router", "uso": "referencia de diseño: puerta" },
+        { "ruta": "productivity/skills/memory-management", "uso": "referencia de diseño: memoria" },
+        { "ruta": "productivity/skills/start", "uso": "referencia de diseño: memoria" },
+        { "ruta": "cowork-plugin-management/skills/create-cowork-plugin", "uso": "referencia de diseño: estructura del plugin" }
+      ]
+    },
+    {
+      "repo": "msitarzewski/agency-agents",
+      "autor": "AgentLand Contributors",
+      "licencia": "MIT",
+      "commit": "652b2692f8d8ec2b1f1a38e559073e287dfdc469",
+      "fecha": "2026-10-15",
+      "rutas": [
+        { "ruta": "marketing/marketing-instagram-curator.md", "uso": "semilla redes" },
+        { "ruta": "marketing/marketing-carousel-growth-engine.md", "uso": "semilla redes" },
+        { "ruta": "research/research-synthesist.md", "uso": "semilla aprender" }
+      ]
+    },
+    {
+      "repo": "wshobson/agents",
+      "autor": "Seth Hobson",
+      "licencia": "MIT",
+      "commit": "0874a27b17a22e2b7c2e2bcd725768e0803cad06",
+      "fecha": "2026-10-17",
+      "rutas": [
+        { "ruta": "plugins/avoid-ai-writing/skills/avoid-ai-writing", "uso": "semilla escribir" }
+      ]
+    },
+    {
+      "repo": "addyosmani/agent-skills",
+      "autor": "Addy Osmani",
+      "licencia": "MIT",
+      "commit": "aeac41d4d005999432bb7312f7ff06383a91d59d",
+      "fecha": "2026-10-13",
+      "rutas": [
+        { "ruta": "skills/interview-me", "uso": "referencia de diseño: entrevista" }
+      ]
+    }
+  ]
+}

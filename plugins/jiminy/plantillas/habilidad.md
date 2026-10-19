@@ -2,7 +2,7 @@
 
 - **Frente:** {{frente}}
 - **Versión:** {{v1}}
-- **Origen:** {{propia | semilla: <carpeta>}}
+- **Origen:** {{propia | semilla: <carpeta> · versión <N>}}
 - **Se usa cuando dice:** "{{frase}}" · "{{frase}}"
 
 ## Para qué sirve

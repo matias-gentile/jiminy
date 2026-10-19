@@ -91,7 +91,11 @@ Se crea desde `plantillas/indice.md`. Tiene dos tablas.
 - **Se usa cuando dice…:** de dos a cinco frases reales de la persona, entre
   comillas y separadas por ` · `.
 - **Versión actual:** la que se usa. Volver atrás es cambiar este valor.
-- **Origen:** `propia` o `semilla: <carpeta de la semilla>`.
+- **Origen:** `propia` o `semilla: <carpeta de la semilla>`. El encabezado de la habilidad
+  (`vN.md`) guarda además la versión de la semilla de la que salió:
+  `semilla: <carpeta> · versión <N>`. Cuando la semilla del plugin tiene una versión
+  más nueva, `puerta` ofrece una vez compararla con la de la persona usando
+  `mejorar-habilidad`. Nunca se reemplaza sola.
 
 **Pendiente** (opcional; lo escribe `empezar` y lo vacía quien completa cada cosa):
 
