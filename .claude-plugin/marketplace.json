@@ -1,0 +1,14 @@
+{
+  "name": "jiminy",
+  "owner": {
+    "name": "Matías Gentile"
+  },
+  "plugins": [
+    {
+      "name": "jiminy-prueba",
+      "displayName": "Jiminy (prueba)",
+      "source": "./plugins/jiminy-prueba",
+      "description": "Plugin mínimo para las pruebas de la Fase 0 de Jiminy. No es para uso diario: se quita al terminar las pruebas."
+    }
+  ]
+}

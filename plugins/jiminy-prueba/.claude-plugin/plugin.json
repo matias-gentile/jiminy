@@ -1,0 +1,8 @@
+{
+  "name": "jiminy-prueba",
+  "version": "0.1.0",
+  "description": "Pruebas de la Fase 0 de Jiminy: instalación, actualizaciones, carpeta del proyecto, activación, semillas y entorno de Cowork.",
+  "author": {
+    "name": "Matías Gentile"
+  }
+}
